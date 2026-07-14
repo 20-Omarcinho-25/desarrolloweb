@@ -60,14 +60,24 @@
                 
                 <div class="d-grid gap-2">
                     <a href="registrar.jsp" class="btn btn-primary btn-lg rounded-pill shadow">
-                        Ingresar al Sistema
+                    Ingresar al Sistema   
                     </a>
                 </div>
+                
+                <div class="d-grid gap-2 mt-3">
+                    <a href="estudiante" class="btn btn-outline-light btn-lg rounded-pill">
+                    Ver Lista de Estudiantes
+                    </a>
+                </div>
+                
                 
             </div>
         </div>
     </div>
-
+    
+    
+    
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,49 +1,86 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%-- Importación obligatoria de JSTL Core --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Registro Exitoso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sidereum Lacertae - Estudiantes Registrados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        *{ margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
-        body{
-            background: linear-gradient(rgba(15,23,42,0.80),rgba(15,23,42,0.80)), url('img/estudiantes.jpg');
-            background-size:cover; background-position:center; background-attachment:fixed;
-            display:flex; justify-content:center; align-items:center; height:100vh;
+        body {
+            background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)), url('img/estudiantes.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
         }
-        .success-box{
-            width:450px; background:rgba(255,255,255,0.10); backdrop-filter:blur(12px);
-            border-radius:25px; padding:45px; text-align:center;
-            box-shadow:0 10px 40px rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.1);
+        .glass-card {
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
         }
-        .icon{ font-size:70px; margin-bottom:20px; }
-        .success-box h1{ color:white; margin-bottom:15px; font-size:34px; }
-        .success-box p{ color:#d1fae5; line-height:1.8; margin-bottom:30px; font-size:16px; }
-        .datos{
-            background:rgba(255,255,255,0.08); border-radius:15px;
-            padding:20px; margin-bottom:30px; text-align:left;
-        }
-        .datos h3{ color:#4ade80; margin-bottom:12px; }
-        .datos span{ color:white; display:block; margin-bottom:10px; }
-        .btn{
-            display:inline-block; width:100%; padding:15px; background:#22c55e;
-            color:white; text-decoration:none; border-radius:12px; font-weight:bold; transition:0.3s;
-        }
-        .btn:hover{ background:#16a34a; transform:translateY(-3px); }
     </style>
 </head>
-<body>
-    <div class="success-box">
-        <div class="icon">✅</div>
-        <h1>Registro Exitoso</h1>
-        <p>El estudiante ha sido registrado correctamente en el sistema academico Sidereum Lacertae y guardado en la base de datos.</p>
-        <div class="datos">
-            <h3>Informacion Registrada</h3>
-            <span>Nombre: ${nombre}</span>
-            <span>Correo: ${email}</span>
+<body class="text-white py-5">
+
+    <div class="container">
+        <div class="glass-card p-4 p-md-5 shadow-lg">
+            
+            <div class="text-center mb-4">
+                <span class="fs-1">✅</span>
+                <h1 class="fw-bold mt-2">Estudiantes Registrados</h1>
+                <p class="text-success fw-semibold">Control de Activos y Estudiantes - Sidereum Lacertae</p>
+            </div>
+
+            <div class="table-responsive mt-4">
+                <table class="table table-dark table-striped table-hover align-middle rounded-3 overflow-hidden">
+                    <thead class="table-success text-dark">
+                        <tr>
+                            <th scope="col" class="py-3">ID</th>
+                            <th scope="col" class="py-3">Nombre Completo</th>
+                            <th scope="col" class="py-3">Correo Electrónico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:choose>
+                            <%-- Evaluamos si la lista tiene elementos utilizando Expression Language (EL) --%>
+                            <c:when test="${not empty listaEstudiantes}">
+                                <%-- Iteración dinámica de la lista enviada por el Servlet --%>
+                                <c:forEach var="estudiante" items="${listaEstudiantes}">
+                                    <tr>
+                                        <th scope="row" class="py-3">${estudiante.id}</th>
+                                        <td class="py-3">${estudiante.nombre}</td>
+                                        <td class="py-3">${estudiante.correo}</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <tr>
+                                    <td colspan="3" class="text-center py-4 text-muted">
+                                        No se encontraron estudiantes registrados en el sistema.
+                                    </td>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4 d-flex flex-column flex-sm-row justify-content-center gap-3">
+                <a href="registrar.jsp" class="btn btn-success px-4 py-2 rounded-pill fw-bold shadow">
+                    ➕ Registrar Nuevo Estudiante
+                </a>
+                <a href="index.jsp" class="btn btn-outline-light px-4 py-2 rounded-pill fw-bold">
+                    🏠 Volver a la Portada
+                </a>
+            </div>
+
         </div>
-        <a href="registrar.jsp" class="btn">Registrar otro estudiante</a>
-        <br><br>
-        <a href="index.jsp" style="color:#d1fae5; text-decoration:none;">Volver al Inicio</a>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
